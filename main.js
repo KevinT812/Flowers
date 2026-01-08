@@ -137,5 +137,3 @@ function updateSize() {
         new THREE.WebGLRenderTarget(width, height)
     ]
 }
-
-
