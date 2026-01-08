@@ -41,21 +41,17 @@ canvas {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 100%;
+    width: 90%;
+    max-width: 1000px;
     transform: translate(-50%, -50%);
-
     text-align: center;
-    font-size: 4vw;
+    font-size: clamp(24px, 6vw, 100px); /* tamaño mínimo 16px, máximo 60px */
     font-family: 'Arial', sans-serif;
+    font-weight: bold;
     user-select: none;
     pointer-events: none;
     color: #fff8c6;
-}
-
-/* efecto neon */
-.name.neon {
-    color: #f5f4ed;
-    text-shadow:
+        text-shadow:
         0 0 5px #ffe60a,
         0 0 10px #ffe600,
         0 0 20px #ffd500,
@@ -63,32 +59,31 @@ canvas {
         0 0 80px #ffcc00;
     animation: neon-flicker 3s infinite alternate;
 }
-
 .name span {
     display: block;
+    line-height: 1.1; /* menos espacio entre líneas */
 }
 
-/* animación sutil tipo neon */
 @keyframes neon-flicker {
     0% {
-        opacity: 0.9;
+        opacity: 0.85;
         text-shadow:
-            0 0 5px #fff7a8,
-            0 0 10px #ffe600,
-            0 0 20px #ffd500;
+            0 0 10px #fff7a8,
+            0 0 20px #ffe600,
+            0 0 40px #ffd500,
+            0 0 80px #ffcc00;
     }
     50% {
         opacity: 1;
         text-shadow:
-            0 0 10px #fff7a8,
-            0 0 20px #ffe600,
-            0 0 40px #ffcc00,
-            0 0 80px #ffcc00;
+            0 0 15px #fff7a8,
+            0 0 30px #ffe600,
+            0 0 60px #ffcc00,
+            0 0 120px #ffcc00;
     }
     100% {
-        opacity: 0.95;
+        opacity: 0.9;
     }
-
 }
 
 @media all and (min-width: 640px) {
@@ -119,15 +114,17 @@ canvas {
 
 .lock-box input,
 .lock-box button {
-    font-size: 20px;
-    padding: 10px;
+    font-size: 2vw; /* tamaño relativo al ancho de la pantalla */
+    padding: 0.8em 1em;
     border-radius: 6px;
     border: none;
+    width: 100%; /* ocupar todo el contenedor */
+    max-width: 300px; /* evitar que sea demasiado grande en escritorio */
 }
 
 .lock-box button {
+    margin-top: 10px;
     cursor: pointer;
-
 }
 
 @media (max-width: 480px) {
@@ -139,6 +136,10 @@ canvas {
     .clean-btn {
         font-size: 13px;
         padding: 0 0 10px 15px;
+    }
+    .lock-box input,
+    .lock-box button {
+        font-size: 5vw; /* más grande en pantallas pequeñas */
     }
 
 }
