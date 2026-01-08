@@ -1,0 +1,137 @@
+html, body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+.clean-btn {
+    z-index: 1;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: white;
+    text-shadow: 0 0 10px #000000;
+    user-select: none;
+    padding: 0 0 15px 25px;
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: .5;
+}
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+}
+
+.name {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 4vw;
+    font-family: 'Arial', sans-serif;
+    user-select: none;
+    pointer-events: none;
+    color: #fff8c6;
+}
+
+/* efecto neon */
+.name.neon {
+    color: #f5f4ed;
+    text-shadow:
+        0 0 5px #ffe60a,
+        0 0 10px #ffe600,
+        0 0 20px #ffd500,
+        0 0 40px #ffcc00,
+        0 0 80px #ffcc00;
+    animation: neon-flicker 3s infinite alternate;
+}
+
+.name span {
+    display: block;
+}
+
+/* animación sutil tipo neon */
+@keyframes neon-flicker {
+    0% {
+        opacity: 0.9;
+        text-shadow:
+            0 0 5px #fff7a8,
+            0 0 10px #ffe600,
+            0 0 20px #ffd500;
+    }
+    50% {
+        opacity: 1;
+        text-shadow:
+            0 0 10px #fff7a8,
+            0 0 20px #ffe600,
+            0 0 40px #ffcc00,
+            0 0 80px #ffcc00;
+    }
+    100% {
+        opacity: 0.95;
+    }
+}
+
+@media all and (min-width: 640px) {
+    .name {
+        font-size: 45px
+    }
+}
+
+#lock {
+    position: fixed;
+    inset: 0; /* top, right, bottom, left = 0 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85); /* fondo oscuro */
+    z-index: 9999;
+}
+
+.lock-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
+}
+
+.lock-box input,
+.lock-box button {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.lock-box button {
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .name {
+        padding: 1rem;
+        line-height: 1.35;
+    }
+
+    .clean-btn {
+        font-size: 13px;
+        padding: 0 0 10px 15px;
+    }
+}
