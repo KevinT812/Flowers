@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Flores</title>
     <link rel="stylesheet" href="main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 </head>
 <body>
 
@@ -202,11 +202,11 @@ function checkPin() {
     document.getElementById('lock').style.display = 'none'
     document.getElementById('app').style.display = 'block'
 
-    // fuerza el zoom a 1
-    document.body.style.zoom = "1"; // funciona en algunos navegadores
-    // o
-    window.scrollTo(0,0)
-    
+    // Forzar reset de zoom en iOS
+    document.activeElement.blur(); // quita el foco del input
+    setTimeout(() => { 
+        window.scrollTo(0,0);
+    }, 50);
   } else {
     const frase = frases[Math.floor(Math.random() * frases.length)]
     alert(frase)
