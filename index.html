@@ -201,6 +201,12 @@ function checkPin() {
   if (pin === 'j23888') {
     document.getElementById('lock').style.display = 'none'
     document.getElementById('app').style.display = 'block'
+
+    // fuerza el zoom a 1
+    document.body.style.zoom = "1"; // funciona en algunos navegadores
+    // o
+    window.scrollTo(0,0)
+    
   } else {
     const frase = frases[Math.floor(Math.random() * frases.length)]
     alert(frase)
