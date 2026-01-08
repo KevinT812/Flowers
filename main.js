@@ -123,6 +123,19 @@ function render() {
 }
 
 function updateSize() {
-	shaderMaterial.uniforms.u_ratio.value = window.innerWidth / window.innerHeight
-	renderer.setSize(window.innerWidth, window.innerHeight)
+    const width = window.innerWidth
+    const height = window.innerHeight
+
+    shaderMaterial.uniforms.u_ratio.value = width / height
+    renderer.setSize(width, height)
+
+    // recrear render targets
+    renderTargets[0].dispose()
+    renderTargets[1].dispose()
+    renderTargets = [
+        new THREE.WebGLRenderTarget(width, height),
+        new THREE.WebGLRenderTarget(width, height)
+    ]
 }
+
+
