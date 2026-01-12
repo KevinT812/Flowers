@@ -12,93 +12,93 @@ html, body {
     height: 100%;
 }
 
-.container, canvas{
+/* ---------------- CANVAS ---------------- */
+.container,
+canvas {
     position: fixed;
     inset: 0;
 }
 
+canvas {
+    display: block;
+    touch-action: none;
+    background: black;
+    transform: translateZ(0); /* fuerza GPU */
+}
+
+/* ---------------- BOTÓN LIMPIAR ---------------- */
 .clean-btn {
     z-index: 1;
     font-family: sans-serif;
     font-size: 15px;
     color: white;
-    text-shadow: 0 0 10px #000000;
+    text-shadow: 0 0 5px #000;
     user-select: none;
     padding: 0 0 15px 25px;
     cursor: pointer;
     text-decoration: underline;
-    opacity: .5;
-}
-canvas {
-    position: fixed;
-    inset: 0;
-    display: block;
-    touch-action: none;
-    background: black;
+    opacity: .6;
 }
 
+/* ---------------- TEXTO CENTRAL ---------------- */
 .name {
     position: fixed;
     top: 50%;
     left: 50%;
     width: 90%;
     max-width: 1000px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translateZ(0);
     text-align: center;
-    font-size: clamp(24px, 6vw, 100px); /* tamaño mínimo 16px, máximo 60px */
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: bold;
     user-select: none;
     pointer-events: none;
     color: #fff8c6;
-        text-shadow:
-        0 0 5px #ffe60a,
-        0 0 10px #ffe600,
-        0 0 20px #ffd500,
-        0 0 40px #ffcc00,
-        0 0 80px #ffcc00;
-    animation: neon-flicker 3s infinite alternate;
-}
-.name span {
-    display: block;
-    line-height: 1.1; /* menos espacio entre líneas */
+    font-size: clamp(24px, 6vw, 100px);
+
+    /* Versión ligera por defecto */
+    text-shadow:
+        0 0 6px #ffe600,
+        0 0 12px #ffd500;
 }
 
-@keyframes neon-flicker {
-    0% {
-        opacity: 0.85;
+/* Animación SOLO en escritorio */
+@media (hover: hover) and (pointer: fine) {
+    .name {
+        animation: neon-flicker 3s infinite alternate;
         text-shadow:
             0 0 10px #fff7a8,
             0 0 20px #ffe600,
             0 0 40px #ffd500,
             0 0 80px #ffcc00;
     }
+}
+
+.name span {
+    display: block;
+    line-height: 1.1;
+}
+
+@keyframes neon-flicker {
+    0% {
+        opacity: 0.85;
+    }
     50% {
         opacity: 1;
-        text-shadow:
-            0 0 15px #fff7a8,
-            0 0 30px #ffe600,
-            0 0 60px #ffcc00,
-            0 0 120px #ffcc00;
     }
     100% {
         opacity: 0.9;
     }
 }
 
-@media all and (min-width: 640px) {
-    .name {
-        font-size: 45px
-    }
-}
-
+/* ---------------- LOCK SCREEN ---------------- */
 #lock {
     position: fixed;
-    inset: 0; /* top, right, bottom, left = 0 */
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.85); /* fondo oscuro */
+    background: rgba(0, 0, 0, 0.85);
     z-index: 9999;
 }
 
@@ -107,39 +107,53 @@ canvas {
     flex-direction: column;
     gap: 12px;
     padding: 20px 25px;
-    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.12);
 }
 
+/* inputs */
 .lock-box input,
 .lock-box button {
-    font-size: 2vw; /* tamaño relativo al ancho de la pantalla */
+    font-size: 2vw;
     padding: 0.8em 1em;
     border-radius: 6px;
     border: none;
-    width: 100%; /* ocupar todo el contenedor */
-    max-width: 300px; /* evitar que sea demasiado grande en escritorio */
+    width: 100%;
+    max-width: 300px;
 }
 
-.lock-box button {
-    margin-top: 10px;
-    cursor: pointer;
-}
+/* ---------------- MOBILE OPTIMIZATIONS ---------------- */
+@media (max-width: 768px) {
 
-@media (max-width: 480px) {
     .name {
+        animation: none; /* 🔥 elimina repaints */
+        text-shadow:
+            0 0 6px #ffe600,
+            0 0 12px #ffd500;
         padding: 1rem;
-        line-height: 1.35;
+        line-height: 1.3;
     }
 
     .clean-btn {
         font-size: 13px;
         padding: 0 0 10px 15px;
     }
-    .lock-box input,
-    .lock-box button {
-        font-size: 5vw; /* más grande en pantallas pequeñas */
+
+    .lock-box {
+        /* quitar blur costoso */
+        backdrop-filter: none;
+        background: rgba(0, 0, 0, 0.6);
     }
 
+    .lock-box input,
+    .lock-box button {
+        font-size: 5vw;
+    }
+}
+
+/* ---------------- LARGE SCREENS ---------------- */
+@media (min-width: 640px) {
+    .name {
+        font-size: 45px;
+    }
 }
